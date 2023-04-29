@@ -24,37 +24,36 @@
 
 У середовищі візуального програмування node-red створено фрагмент коду для зчитування конфігурацій системи та контролера. Функція SystemState створює об'єкт у глобальному контексті з усіма даними про систему. Функція getConfigстворює массив у глобальному контексті з конфігураціями контролера які можна зберігати у 1омурегістрі. (Рис.2). Кожен елемент масиву відповідає порядкому значенню у регістрі. Приклад реалізації даної функції див Рис.3.
 
-![](RackMultipart20230428-1-rrta77_html_2ec0eddbdcae1b60.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture2.png?raw=true)
 
 Рисунок 2. Зчитування налаштувань контроллера та системи у node-red.
 
-![](RackMultipart20230428-1-rrta77_html_f36de952227069be.png)
-
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture3.png?raw=true)
 Рисунок 3. Реалізаціяфункції getConfig
 
 Для зміни параметрів роботи системи створимо візуалізацію (див. Рис.4)
 
-![](RackMultipart20230428-1-rrta77_html_37bc4c70910b1ece.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture4.png?raw=true)
 
 Рисунок 4. Реалізація візуалізації у середовищі node-red
 
 Для запису булевого значення потрібно змінити відповідний біт у конфігурації контролера, після чого потрібно його перетворити у число і записати у перший регістр. Розглянемо встановлення ручного та автоматичного режиму:
 
-![](RackMultipart20230428-1-rrta77_html_4946e390ad8dd595.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture5.png?raw=true)
 
 Рисунок 5. Реалізація функції manualMode
 
-![](RackMultipart20230428-1-rrta77_html_ee9bfac50feb7d68.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture6.png?raw=true)
 
 Рисунок 6. Реалізація функції toNumber
 
 ## **1.3 Верифікація**
 
-![](RackMultipart20230428-1-rrta77_html_6b0604058ce3beee.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture7.png?raw=true)
 
 Рисунок 7. Візуалізація до завдання 1
 
-![](RackMultipart20230428-1-rrta77_html_d52f3fc315e44af7.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture8.png?raw=true)
 
 Рисунок 8. Робота в CodeSys
 
@@ -78,43 +77,43 @@
 
 Щоб забезпечити зберігання інформації про роботу в базі даних часових рядів InfluxDb, потрібно створити структуру для зберігання даних з відповідними полями та тегами безпосередньо в системі управління базами даних InfluxDb. Перш за все, необхідно створити Bucket, у якому будуть зберігатись дані з відповідними полями та тегами.
 
-![](RackMultipart20230428-1-rrta77_html_6a99b33653b2b606.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture9.png?raw=true)
 
 Рисунок 9. Створений Bucket
 
 Виконаємо налаштування бази даних та встановимо тривалість зберігання даних - один місяць.
 
-![](RackMultipart20230428-1-rrta77_html_6f2dc1501f2723ca.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture10.png?raw=true)
 
 Рисунок 10. Налаштування бази даних
 
 Налаштуємо зберігання. Для цього визначимо параметри зберігання до бази даних, генеруючи API Token для підключення з середовища Node-Red.
 
-![](RackMultipart20230428-1-rrta77_html_bad0f167d58561f0.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture11.png?raw=true)
 
 Рисунок 11.Створений API Token
 
 Для роботи з базою даних InfluxDb в середовищі Node-Red необхідно підключити модуль node-red-contrib-stackhero-influxdb-v2
 
-![](RackMultipart20230428-1-rrta77_html_2950ac414627acc9.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture12.png?raw=true)
 
 Рисунок 12. Підключення модуля node-red-contrib-stackhero-influxdb-v2
 
 Для того, щоб записувати real-time дані у БДвикористаємо алгоритм, що складається з блоків для зчитування даних з flow змінної, форматування даних у JSON та запиус в базу даних:
 
-![](RackMultipart20230428-1-rrta77_html_13e7d156ee6a0b83.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture13.png?raw=true)
 
 Рисунок 13. Алгоритм запису даних у БД
 
 У нодіtoDbFormatвизначаємоформатування вхідних даних у JSON який будемо передавати в базу даних:
 
-![](RackMultipart20230428-1-rrta77_html_8bf1976f61426af.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture14.png?raw=true)
 
 Рисунок 14.Форматування вхідних даних у JSON
 
 У ноді запису у БД задаємо параметри конфігурації для підключення до бази даних InfluxDb.
 
-![](RackMultipart20230428-1-rrta77_html_feadbf8326169255.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture15.png?raw=true)
 
 Рисунок 15. Конфігурація підключення до Bucket в базі даних
 
@@ -122,7 +121,7 @@
 
 Результат роботи створення бази даних InfluxDb та підключення до неї через середовище Node-Red:
 
-![](RackMultipart20230428-1-rrta77_html_39cb1ae329f4eaec.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture16.png?raw=true)
 
 Рисунок 16. Дані в базі отримані з Node-Red.
 
@@ -150,19 +149,19 @@
 
 Реалізуємо наступний алгоритм для зчитування архівних даних про роботу системи керування з БД InfluxDB за обраний час: останню хвилину, останні 5 хвилин, останні 15 хвилин, вказаний користувачем час.
 
-![](RackMultipart20230428-1-rrta77_html_d8b90c3055ce57c1.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture17.png?raw=true)
 
 Рисунок 17. Алгоритм для зчитування даних з БД
 
 На рисунку 17 відбувається зчитування даних за останню хвилину, останні 5 хвилин, останні 15 хвилин та час вказаний користувачем з нашого UI для Node-Red. Після цього дані форматуються у JSON для подальшої передачі їх в базу даних. Нижче наведено запит до бази даних який читає дані за відповідний проміжок часу:
 
-![](RackMultipart20230428-1-rrta77_html_1e22d7a09e1ae66e.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture18.png?raw=true)
 
 Рисунок 18.Запит для читання даних з БД
 
 Таким чином виконана візуалізація показників технологічних змінних за допомогою вбудованих засобів Node-RED. Після того як ми отримали потрібні дані потрібно виконати обробку корисного навантаження та відобразити зміну виходу об'єкта та уставки на одному графіку.
 
-![](RackMultipart20230428-1-rrta77_html_1a1ecd513a57813a.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture19.png?raw=true)
 
 Рисунок 19.Алгоритм для передачі даних для виводу об'єкта та уставки на одному графіку
 
@@ -170,7 +169,7 @@
 
 Виконавши дії описані в попередньому пункті отримуємо результат у вигляді інтерфейсу для взаємодії з застосунком, де ми можемо вказати потрібний час роботи системи керування і відповідно побачимо графік виходу об'єкту та уставки регулятора на одному графіку.
 
-![](RackMultipart20230428-1-rrta77_html_7e4282b4b265e306.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/blob/main/img/Picture20.png?raw=true)
 
 Рисунок 20. Інтерфейсвиводу архівних даних на графік
 
