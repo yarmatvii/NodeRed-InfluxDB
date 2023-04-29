@@ -18,7 +18,7 @@
 
 При виконанні лабораторної роботи було записано всі булеві змінні конфігурації в перший (0) holding register
 
-![](RackMultipart20230428-1-rrta77_html_636edf3dbd7ff54a.png)
+![screenshot](https://github.com/yarmatvii/NodeRed-InfluxDB/imag/Picture1.jpg?raw=true)
 
 Рисунок 1. Зчитування конфігурацій контролера з регістрів у CodeSys
 
